@@ -15,25 +15,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //Method
 
-  Widget floattingAction = FloatingActionButton(
-    backgroundColor: Colors.blue.shade50,
-    child: Icon(Icons.add),
-    onPressed: () {},
-  );
+  Widget floattingAction() {
+    return FloatingActionButton(
+      backgroundColor: Colors.blue.shade50,
+      child: Icon(Icons.add),
+      onPressed: () {},
+    );
+  }
 
-  Widget appBar = AppBar(
-    title: Text('Main Screen'),
-    actions: <Widget>[
-      IconButton(
-        icon: Icon(Icons.home),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(Icons.people),
-        onPressed: () {},
-      )
-    ],
-  );
+  Widget appBar() {
+    return AppBar(
+      title: Text('Main Screen'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.home),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: Icon(Icons.people),
+          onPressed: () {},
+        )
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     return Scaffold(
       bottomNavigationBar: bottonNavbar,
-      floatingActionButton: floattingAction,
-      appBar: appBar,
+      floatingActionButton: floattingAction(),
+      appBar: appBar(),
       body: Center(
         child: pages[currentIndex],
       ),

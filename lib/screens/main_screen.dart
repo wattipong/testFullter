@@ -30,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   // Method
-  void showName(String name, int age) {
+  Future<void> showName(String name, int age) {
     print('Name : $name , Age: $age');
   }
 
