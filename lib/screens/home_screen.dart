@@ -39,32 +39,38 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    Widget bottonNavbar = BottomNavigationBar(
-      currentIndex: currentIndex,
-      onTap: (int index) {
-        setState(() {
-          currentIndex = index;
-        });
-      },
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          title: Text('หน้าหลัก'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle),
-          title: Text('ข้อมูลส่วนตัว'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          title: Text('ตั้งค่า'),
-        ),
-      ],
-    );
+    
+    Widget bottonNavbar() {
+      return BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (int index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('หน้าหลัก'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            title: Text('ข้อมูลส่วนตัว'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text('ตั้งค่า'),
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
-      bottomNavigationBar: bottonNavbar,
+      bottomNavigationBar: bottonNavbar(),
       floatingActionButton: floattingAction(),
       appBar: appBar(),
       body: Center(
