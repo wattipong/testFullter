@@ -8,6 +8,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Redemption',
+        scaffoldBackgroundColor: Colors.pink,
+        accentColor: Colors.amber,
+      ),
       title: 'My App',
       home: HomeScreen(),
     );

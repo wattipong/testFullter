@@ -17,58 +17,68 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget floattingAction() {
     return FloatingActionButton(
-      backgroundColor: Colors.blue.shade50,
       child: Icon(Icons.add),
+      onPressed: () {},
+    );
+  }
+
+  Widget iconButtonHome() {
+    return IconButton(
+      icon: Icon(Icons.home),
+      onPressed: () {},
+    );
+  }
+
+  Widget iconButtonPeople() {
+    return IconButton(
+      icon: Icon(Icons.people),
       onPressed: () {},
     );
   }
 
   Widget appBar() {
     return AppBar(
-      title: Text('Main Screen'),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.home),
-          onPressed: () {},
+      title: Text(
+        'Home Screen',
+        style: TextStyle(
+          fontSize: 30.0,
+          fontWeight: FontWeight.bold,
         ),
-        IconButton(
-          icon: Icon(Icons.people),
-          onPressed: () {},
-        )
+      ),
+      actions: <Widget>[
+        iconButtonHome(),
+        iconButtonPeople(),
       ],
     );
   }
 
-
+  Widget bottonNavbar() {
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      onTap: (int index) {
+        setState(() {
+          currentIndex = index;
+        });
+      },
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          title: Text('หน้าแรก'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_circle),
+          title: Text('ข้อมูลส่วนตัว'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          title: Text('ตั้งค่า'),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    
-    Widget bottonNavbar() {
-      return BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (int index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('หน้าหลัก'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('ข้อมูลส่วนตัว'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('ตั้งค่า'),
-          ),
-        ],
-      );
-    }
-
     return Scaffold(
       bottomNavigationBar: bottonNavbar(),
       floatingActionButton: floattingAction(),
