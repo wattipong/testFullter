@@ -8,8 +8,17 @@ class PageOne extends StatefulWidget {
 class _PageOneState extends State<PageOne> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('PageOne'),
+    return Column(
+      children: <Widget>[
+        Card(
+                  child: Image(
+            image: AssetImage('images/black.jpg'),
+          ),
+        ),
+        Image(
+          image: AssetImage('images/black.jpg'),
+        )
+      ],
     );
   }
 }
