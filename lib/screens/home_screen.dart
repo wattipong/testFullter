@@ -13,6 +13,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   List pages = [PageOne(), PageTwo(), PageThree()];
 
+  TextStyle myStyle = TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold);
+  TextStyle myStyle2 = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
+
   //Method
 
   Widget floattingAction() {
@@ -40,10 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return AppBar(
       title: Text(
         'Home Screen',
-        style: TextStyle(
-          fontSize: 30.0,
-          fontWeight: FontWeight.bold,
-        ),
+        style: myStyle,
       ),
       actions: <Widget>[
         iconButtonHome(),
@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BottomNavigationBar(
       currentIndex: currentIndex,
       onTap: (int index) {
+        //  setState() ใช้งานการ ReAssign ค่าที่มีการเปลี่ยนแปลง หมายเหตุใช้ได้กับ  StateFull เท่านั้น
         setState(() {
           currentIndex = index;
         });
@@ -63,15 +64,15 @@ class _HomeScreenState extends State<HomeScreen> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text('หน้าแรก'),
+          title: Text('หน้าแรก', style: myStyle2),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
-          title: Text('ข้อมูลส่วนตัว'),
+          title: Text('ข้อมูลส่วนตัว', style: myStyle2),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
-          title: Text('ตั้งค่า'),
+          title: Text('ตั้งค่า', style: myStyle2),
         ),
       ],
     );

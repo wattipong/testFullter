@@ -57,9 +57,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Redemption
+    - family: Merriweather
       fonts:
-        - asset: fonts/UncialAntiqua-Regular.ttf
+        - asset: fonts/Merriweather-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

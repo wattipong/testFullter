@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'Redemption',
+        fontFamily: 'Merriweather',
         scaffoldBackgroundColor: Colors.pink,
         accentColor: Colors.amber,
       ),
