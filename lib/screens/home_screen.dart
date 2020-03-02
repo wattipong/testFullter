@@ -3,6 +3,8 @@ import 'package:test_apps/screens/page_one.dart';
 import 'package:test_apps/screens/page_three.dart';
 import 'package:test_apps/screens/page_two.dart';
 
+import 'add_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -21,7 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget floattingAction() {
     return FloatingActionButton(
       child: Icon(Icons.add),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AddScreen()));
+      },
     );
   }
 

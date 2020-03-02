@@ -8,57 +8,72 @@ class PageTwo extends StatefulWidget {
 class _PageTwoState extends State<PageTwo> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Image(
-          height: 100,
-          // width: 100,
-          image: AssetImage('images/black.jpg'),
-        ),
-        Container(
-          height: 100.0,
-          color: Colors.green,
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                height: 100.0,
-                color: Colors.grey,
+    return ListView(children: <Widget>[
+      Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Image(
+            
+            height: 100,
+            // width: 100,
+            image: AssetImage('images/black.jpg'),
+          ),
+          Container(
+            height: 100.0,
+            color: Colors.green,
+          ),
+          Image(
+            
+            height: 100,
+            // width: 100,
+            image: AssetImage('images/black.jpg'),
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Image(
+                  fit: BoxFit.fill,
+                  height: 100,
+                  // width: 100,
+                  image: AssetImage('images/black.jpg'),
+                ),
               ),
-            ),
-            Expanded(
-              child: Container(
-                height: 100.0,
-                color: Colors.orange,
+              Expanded(
+                child: Image(
+                  fit: BoxFit.fill,
+                  height: 100,
+                  // width: 100,
+                  image: AssetImage('images/black.jpg'),
+                ),
               ),
-            ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                height: 100.0,
-                color: Colors.blue,
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Image(
+                  fit: BoxFit.fitWidth,
+                  height: 100,
+                  // width: 100,
+                  image: AssetImage('images/black.jpg'),
+                ),
               ),
-            ),
-            Expanded(
-              child: Container(
-                height: 100.0,
-                color: Colors.green,
+              Expanded(
+                child: Container(
+                  height: 100.0,
+                  color: Colors.green,
+                ),
               ),
-            ),
-            Expanded(
-              child: Container(
-                height: 100.0,
-                color: Colors.yellow,
+              Expanded(
+                child: Container(
+                  height: 100.0,
+                  color: Colors.yellow,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
-    );
+            ],
+          ),
+        ],
+      ),
+    ]);
   }
 }
