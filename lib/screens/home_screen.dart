@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:test_apps/screens/add_screen.dart';
 import 'package:test_apps/screens/page_one.dart';
 import 'package:test_apps/screens/page_three.dart';
 import 'package:test_apps/screens/page_two.dart';
-
-import 'add_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,9 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget floattingAction() {
     return FloatingActionButton(
       child: Icon(Icons.add),
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AddScreen()));
+      onPressed: () async {
+        var response = await Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AddScreen('Hello Flutter')));
+        print(response['name']);
       },
     );
   }
@@ -33,14 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget iconButtonHome() {
     return IconButton(
       icon: Icon(Icons.home),
-      onPressed: () {},
+      onPressed: () => Navigator.of(context).pushNamed('/add'),
     );
   }
 
   Widget iconButtonPeople() {
     return IconButton(
       icon: Icon(Icons.people),
-      onPressed: () {},
+      onPressed: () => Navigator.of(context).pushNamed('/photo'),
     );
   }
 
