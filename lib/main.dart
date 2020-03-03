@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_apps/screens/add_screen.dart';
 import 'package:test_apps/screens/home_screen.dart';
 import 'package:test_apps/screens/page_one.dart';
+import 'package:test_apps/screens/page_three.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/add': (BuildContext context) => AddScreen('Hello'),
         '/photo': (BuildContext context) => PageOne(),
+        '/setting': (BuildContext context) => PageThree()
       },
     );
   }

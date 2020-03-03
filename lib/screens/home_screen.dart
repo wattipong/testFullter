@@ -140,7 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
           subtitle: Text('Message Menu Home Screen'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            print('Message : Hello');
+            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed('/add');
           },
         ),
         ListTile(
@@ -150,6 +151,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ListTile(
           leading: Icon(Icons.settings),
           title: Text('Setting'),
+          subtitle: Text('How to Sitting Proflie'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed('/setting');
+          },
         ),
         Divider(
           color: Colors.blueGrey,

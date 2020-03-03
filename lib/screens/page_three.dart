@@ -6,10 +6,38 @@ class PageThree extends StatefulWidget {
 }
 
 class _PageThreeState extends State<PageThree> {
+// Field
+
+//Mathod
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Page Threee'),
+    return ListView(
+      children: <Widget>[
+        Card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  'Setting Menu',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.account_circle),
+                title: Text('Profile'),
+                subtitle: Text('Maneger Profile'),
+                trailing: Icon(
+                  Icons.keyboard_arrow_right,
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }
