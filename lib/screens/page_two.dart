@@ -10,10 +10,10 @@ class _PageTwoState extends State<PageTwo> {
   Widget build(BuildContext context) {
     return ListView(children: <Widget>[
       Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Image(
-            
+            fit: BoxFit.cover,
             height: 100,
             // width: 100,
             image: AssetImage('images/black.jpg'),
@@ -23,7 +23,6 @@ class _PageTwoState extends State<PageTwo> {
             color: Colors.green,
           ),
           Image(
-            
             height: 100,
             // width: 100,
             image: AssetImage('images/black.jpg'),
