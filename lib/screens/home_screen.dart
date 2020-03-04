@@ -147,6 +147,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ListTile(
           leading: Icon(Icons.people),
           title: Text('Profile'),
+          subtitle: Text('Setting User Profile'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed('/user');
+          },
         ),
         ListTile(
           leading: Icon(Icons.settings),
