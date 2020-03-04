@@ -19,6 +19,7 @@ class _AddScreenState extends State<AddScreen> {
       title: Text('Add Data Screen'),
     );
   }
+  
 
   Widget raisedButtonBack() {
     return RaisedButton(
@@ -30,6 +31,8 @@ class _AddScreenState extends State<AddScreen> {
       child: Text('Back'),
     );
   }
+
+
 
   Widget listView() {
     return ListView(
