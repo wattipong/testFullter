@@ -11,6 +11,7 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
 //Field
   var users;
+  bool isLoading = true;
 
 //Method
   Future<Null> getUsers() async {
@@ -18,8 +19,9 @@ class _UserScreenState extends State<UserScreen> {
 
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
-      print(jsonResponse);
+
       setState(() {
+        isLoading = false;
         users = jsonResponse['results'];
       });
     } else {
@@ -45,16 +47,23 @@ class _UserScreenState extends State<UserScreen> {
             '${users[index]['name']['last']}',
         style: TextStyle(fontSize: 20.0),
       ),
-      subtitle: Text('Email:' + '${users[index]['email']}'),
-      onTap: () {},
+      subtitle: Text('Email: ' + '${users[index]['email']}'),
+      trailing: Icon(Icons.keyboard_arrow_right),
+      onTap: () {
+        print('${users[index]['name']['first']}');
+      },
     );
   }
 
   Widget lisviewBuilder() {
     return ListView.builder(
+      physics: AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, int index) {
-        return Card(
-          child: listTileBuilder(index),
+        return Column(
+          children: <Widget>[
+            listTileBuilder(index),
+            Divider(),
+          ],
         );
       },
       itemCount: users != null ? users.length : 0,
@@ -64,13 +73,27 @@ class _UserScreenState extends State<UserScreen> {
   Widget appBar() {
     return AppBar(
       title: Text('User List'),
+      actions: <Widget>[
+        IconButton(icon: Icon(Icons.cloud_upload), onPressed: () {}),
+        IconButton(icon: Icon(Icons.cloud_upload), onPressed: () {}),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: lisviewBuilder(),
+      
+      body: RefreshIndicator(
+        onRefresh: getUsers,
+        child: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Card(
+                child: lisviewBuilder(),
+              ),
+      ),
       appBar: appBar(),
     );
   }
