@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:test_apps/screens/home_screen.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -8,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   //feild
+
   TextEditingController ctrlUsername = TextEditingController();
   TextEditingController ctrlPassword = TextEditingController();
 
@@ -15,16 +21,46 @@ class _LoginScreenState extends State<LoginScreen> {
       fontSize: 20.0, fontFamily: 'Merriweather', color: Colors.black);
 
   //method
+  Future<Null> doLogin() async {
+    final response = await http.post(
+      'http://192.168.5.3:8080/users/login',
+      body: {
+        'username': ctrlUsername.text.trim(),
+        'password': ctrlPassword.text.trim()
+      },
+    );
 
-  void dolog() {
-    print(ctrlUsername.text);
-    print(ctrlPassword.text);
-
-    if (ctrlUsername.text.trim() == 'admin' &&
-        ctrlPassword.text == 'admin'.trim()) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (constext) => HomeScreen()));
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      if (jsonResponse['OK']) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (constext) => HomeScreen()));
+      } else {
+        alertLogin(jsonResponse['description'], jsonResponse['field']);
+      }
+    } else {
+      print('Connection error');
     }
+  }
+
+  Future<Alert> alertLogin(String _desc, String _title) {
+    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: _title,
+      desc: _desc,
+      buttons: [
+        DialogButton(
+          color: Colors.blueAccent,
+          child: Text(
+            "CLOSE",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+        )
+      ],
+    ).show();
   }
 
   Widget txtfrmfldUsername() {
@@ -62,7 +98,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
   Widget materialButtonLogin() {
     return Material(
       borderRadius: BorderRadius.all(
@@ -85,11 +120,10 @@ class _LoginScreenState extends State<LoginScreen> {
         color: Colors.blue[400],
         height: 55.0,
         minWidth: 250.0,
-        onPressed: () => dolog(),
+        onPressed: () => doLogin(),
       ),
     );
   }
-  
 
   Widget flatButtonRegister() {
     return FlatButton(
@@ -122,7 +156,6 @@ class _LoginScreenState extends State<LoginScreen> {
           materialButtonLogin(),
           SizedBox(height: 10),
           flatButtonRegister(),
-          
         ],
       ),
     );

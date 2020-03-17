@@ -14,6 +14,7 @@ class _AddScreenState extends State<AddScreen> {
   var params;
   _AddScreenState(this.params);
   //Method
+  
   Widget appBar() {
     return AppBar(
       title: Text('Add Data Screen'),
