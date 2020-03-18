@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:test_apps/screens/home_screen.dart';
 
 import 'package:http/http.dart' as http;
@@ -13,54 +12,92 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   //feild
-
   TextEditingController ctrlUsername = TextEditingController();
   TextEditingController ctrlPassword = TextEditingController();
-
   TextStyle txtStyleFrmFld = TextStyle(
       fontSize: 20.0, fontFamily: 'Merriweather', color: Colors.black);
 
-  //method
-  Future<Null> doLogin() async {
-    final response = await http.post(
-      'http://192.168.5.3:8080/users/login',
-      body: {
-        'username': ctrlUsername.text.trim(),
-        'password': ctrlPassword.text.trim()
-      },
-    );
+  final GlobalKey<ScaffoldState> globalKey = new GlobalKey<ScaffoldState>();
 
-    if (response.statusCode == 200) {
+  bool isLoading = false;
+
+  //method
+  Future<void> doLogin() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      
+      final response = await http.post(
+        'http://192.168.5.3:8080/users/login',
+        body: {
+          'username': ctrlUsername.text.trim(),
+          'password': ctrlPassword.text.trim()
+        },
+      );
+
       var jsonResponse = json.decode(response.body);
+      setState(() {
+        isLoading = false;
+      });
+
       if (jsonResponse['OK']) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (constext) => HomeScreen()));
       } else {
-        alertLogin(jsonResponse['description'], jsonResponse['field']);
+        dialogAlert(
+          'Alert: ' + jsonResponse['field'] + " !",
+          jsonResponse['description'],
+        );
       }
-    } else {
-      print('Connection error');
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      dialogAlert(
+        'Alert: Connection !',
+        e,
+      );
     }
   }
 
-  Future<Alert> alertLogin(String _desc, String _title) {
-    Alert(
+  Future<void> dialogAlert(String _title, String _discription) async {
+    return showDialog<void>(
       context: context,
-      type: AlertType.warning,
-      title: _title,
-      desc: _desc,
-      buttons: [
-        DialogButton(
-          color: Colors.blueAccent,
-          child: Text(
-            "CLOSE",
-            style: TextStyle(color: Colors.white, fontSize: 20),
+      //barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 24.0,
+          title: Text(
+            _title,
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          onPressed: () => Navigator.pop(context),
-          width: 120,
-        )
-      ],
-    ).show();
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Text(
+                    _discription,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                //Text('You\’re like me. I’m never satisfied.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget txtfrmfldUsername() {
@@ -152,7 +189,10 @@ class _LoginScreenState extends State<LoginScreen> {
           txtfrmfldUsername(),
           SizedBox(height: 10.0),
           txtfrmfldPassword(),
-          SizedBox(height: 20.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: isLoading ? CircularProgressIndicator() : null,
+          ),
           materialButtonLogin(),
           SizedBox(height: 10),
           flatButtonRegister(),
@@ -204,6 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalKey,
       body: stackLogin(),
     );
   }
