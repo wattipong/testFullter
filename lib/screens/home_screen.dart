@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_apps/screens/add_screen.dart';
 import 'package:test_apps/screens/page_one.dart';
 import 'package:test_apps/screens/page_three.dart';
@@ -20,7 +21,21 @@ class _HomeScreenState extends State<HomeScreen> {
   TextStyle myStyle = TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold);
   TextStyle myStyle2 = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
 
+  Future<Null> getToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = await sharedPreferences.get('token');
+
+    print(token);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getToken();
+  }
+
   //Method
+
   Widget floattingAction() {
     return FloatingActionButton(
       child: Icon(Icons.add),
@@ -171,7 +186,10 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Exit'),
           subtitle: Text('How Click For Exite Apps'),
           trailing: Icon(Icons.exit_to_app),
-          onTap: () {
+          onTap: () async {
+            SharedPreferences sharedPreferences =
+                await SharedPreferences.getInstance();
+            await sharedPreferences.remove('token');
             exit(0);
           },
         )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_apps/screens/add_screen.dart';
 import 'package:test_apps/screens/login_screen.dart';
 import 'package:test_apps/screens/page_one.dart';
@@ -6,6 +7,9 @@ import 'package:test_apps/screens/page_three.dart';
 import 'package:test_apps/screens/users_screen.dart';
 
 void main() => runApp(MyApp());
+
+
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.amber,
       ),
       title: 'My App',
-      home: LoginScreen(),
+      home:  LoginScreen(),
       routes: <String, WidgetBuilder>{
         '/add': (BuildContext context) => AddScreen('Hello'),
         '/photo': (BuildContext context) => PageOne(),

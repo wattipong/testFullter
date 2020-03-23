@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_apps/screens/home_screen.dart';
 
 import 'package:http/http.dart' as http;
@@ -20,17 +23,29 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<ScaffoldState> globalKey = new GlobalKey<ScaffoldState>();
 
   bool isLoading = false;
+  bool isLogged = false;
 
   //method
+  @override
+  void initState() {
+    super.initState();
+    getToken();
+  }
+
+  Future<Null> getToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = await sharedPreferences.get('token');
+    if (token != null) {}
+  }
+
   Future<void> doLogin() async {
     setState(() {
       isLoading = true;
     });
 
     try {
-      
       final response = await http.post(
-        'http://192.168.5.3:8080/users/login',
+        'http://146.88.48.51:3000/users/login',
         body: {
           'username': ctrlUsername.text.trim(),
           'password': ctrlPassword.text.trim()
@@ -43,6 +58,10 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       if (jsonResponse['OK']) {
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString('token', jsonResponse['access_token']);
+
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (constext) => HomeScreen()));
       } else {
