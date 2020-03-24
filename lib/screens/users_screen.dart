@@ -17,34 +17,30 @@ class _UserScreenState extends State<UserScreen> {
   var users;
   var itemid;
   bool isLoading = true;
-  String _token;
-  var url = 'http://146.88.48.51:3000/images/';
+
+  final url = 'http://146.88.48.51:3000';
 
 //Method
-  Future<Null> getToken() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String token = await sharedPreferences.get('token');
-    _token = token;
-  }
 
   Future<Null> getUsers() async {
-    final response = await http.get('https://randomuser.me/api/?results=20');
+    // final response = await http.get('https://randomuser.me/api/?results=20');
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = await sharedPreferences.get('access_token');
+
+    String hearder = 'Bearer $token';
+
     final _response = await http.get(
-      'http://146.88.48.51:3000/products/all',
-      headers: {HttpHeaders.authorizationHeader: "Bearer $_token"},
+      '$url/products/all',
+      headers: {HttpHeaders.authorizationHeader: hearder},
     );
 
-    final responseJson = json.decode(_response.body);
-
     if (_response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
+      var responseJson = json.decode(_response.body);
 
       setState(() {
         isLoading = false;
-        users = jsonResponse['results'];
         itemid = responseJson['result'];
       });
-      
     } else {
       print('Connection error');
     }
@@ -52,20 +48,20 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   void initState() {
-    //TODO: implement initState
+    
     super.initState();
-    getToken();
     getUsers();
   }
 
   Widget listTileBuilder(int index) {
     return ListTile(
-      leading: Image(image: NetworkImage('${url}${itemid[index]['image']}')),
+      leading:
+          Image(image: NetworkImage('$url/images/${itemid[index]['image']}')),
       title: Text(
-        'Name : ' + '${itemid[index]['name']}',
+        'Item : ' + '${itemid[index]['name']}',
         style: TextStyle(fontSize: 20.0),
       ),
-      subtitle: Text('Email: ' + '${itemid[index]['price']}'),
+      subtitle: Text('price: ' + '${itemid[index]['price']}'),
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () {
         print('${itemid[index]['name']}');

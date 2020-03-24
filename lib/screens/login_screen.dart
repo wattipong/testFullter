@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (jsonResponse['OK']) {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
-        sharedPreferences.setString('token', jsonResponse['access_token']);
+        sharedPreferences.setString('access_token', jsonResponse['access_token']);
 
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (constext) => HomeScreen()));
