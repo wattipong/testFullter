@@ -14,10 +14,9 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
 //Field
-  var users;
+
   var itemid;
   bool isLoading = true;
-
   final url = 'http://146.88.48.51:3000';
 
 //Method
@@ -48,15 +47,15 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   void initState() {
-    
     super.initState();
     getUsers();
   }
 
   Widget listTileBuilder(int index) {
     return ListTile(
-      leading:
-          Image(image: NetworkImage('$url/images/${itemid[index]['image']}')),
+      leading: itemid[index]['image'] == '-' || itemid[index]['image'] == ''
+          ? Image(image: AssetImage('images/noimage.jpg'))
+          : Image(image: NetworkImage('$url/images/${itemid[index]['image']}')),
       title: Text(
         'Item : ' + '${itemid[index]['name']}',
         style: TextStyle(fontSize: 20.0),

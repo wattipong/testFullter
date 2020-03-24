@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<ScaffoldState> globalKey = new GlobalKey<ScaffoldState>();
 
   bool isLoading = false;
-  bool isLogged = false;
+  
 
   //method
   @override
@@ -35,7 +35,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<Null> getToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String token = await sharedPreferences.get('token');
-    if (token != null) {}
+    if (token != null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (constext) => HomeScreen()));
+    }
   }
 
   Future<void> doLogin() async {
@@ -60,7 +63,8 @@ class _LoginScreenState extends State<LoginScreen> {
       if (jsonResponse['OK']) {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
-        sharedPreferences.setString('access_token', jsonResponse['access_token']);
+        sharedPreferences.setString(
+            'access_token', jsonResponse['access_token']);
 
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (constext) => HomeScreen()));
